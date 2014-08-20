@@ -51,7 +51,6 @@ function handleRequest(request, response) {
 		var urlString = url.parse(request.url); // gets the url from the request
 		var queryString = querystring.parse(urlString.query); // gets the query string from the url
 		var filter = queryString.q; //gets the param 'q' from the query string
-//		console.log(filter);
 		getContentsFromDatabase(filter, function(content) {
 			response.writeHead(200, {'Content-Type': 'text/html'});
 			//cheapest. templating system. ever.
@@ -71,7 +70,8 @@ function getContentsFromDatabase(filter, callback) {
 	resultString = "";
 	
 	if(filter) {
-		query = connection.query('select id, user_name, password from users where user_name LIKE "' + filter + '%"');
+		filter = filter + '%';
+		query = connection.query('select id, user_name, password from users where user_name LIKE ?', filter);
 	}
 	else {
 		query = connection.query('select id, user_name, password from users');
@@ -102,8 +102,10 @@ function addContentToDatabase(user_name, password, callback) {
 	
 	connection.query('INSERT INTO users (user_name, password) VALUES ("' + user_name + '", "' + password + '")', 
 		function(error) {
-			console.log(error);
-			callback(); //
+			if(error) {
+				console.log(error);
+			}
+			callback();
 		}
 	);
 }
