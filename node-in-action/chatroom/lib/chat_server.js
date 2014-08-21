@@ -9,8 +9,12 @@ function listen(server) {
 	io = socketio.listen(server);
 	io.set('log level', 1);
 	io.sockets.on('connection', fuction(socket) {
+		
+		//these happen for everyone when they connect
 		guestNumber = assignGuestName(socket, guestNumber, nickNames, namesUsed);
 		joinRoom(socket, 'Lobby');
+		
+		//these set up event-driven handlers for things that will happen in the future.
 		handleMessageBroadcasting(socket, nickNames);
 		handleNameChangeAttempts(socket, nickNames, namesUsed);
 		handleRoomJoining(socket);
