@@ -8,7 +8,7 @@ var currentRoom = {}; //holds a map where the key is the socket id and the value
 function listen(server) {
 	io = socketio.listen(server);
 	io.set('log level', 1);
-	io.sockets.on('connection', fuction(socket) {
+	io.sockets.on('connection', function(socket) {
 		
 		//these happen for everyone when they connect
 		guestNumber = assignGuestName(socket, guestNumber, nickNames, namesUsed);
@@ -40,7 +40,7 @@ function joinRoom(socket, room) {
 	currentRoom[socket.id] = room;
 	socket.emit('joinResult', {room: room}); //hits the user's socket with a 'joinResult' event containing the room info
 	socket.broadcast.to(room).emit('message', { //send the message event to everyone on the 'Lobby' channel
-		text: nickNames[socket.id] + ' has joined ' + room + '.';
+		text: nickNames[socket.id] + ' has joined ' + room + '.'
 	});
 	
 	var usersInRoom = io.sockets.clients(room); //returns the list of socket ids in the current channel
@@ -79,7 +79,7 @@ function handleNameChangeAttempts(socket, nickNames, namesUsed) {
 					name: name
 				});
 				socket.broadcast.to(currentRoom[socket.id]).emit('message', { //from the current connection, broadcasts to the room the current connection is in.
-					text: previousName + ' is now known as ' + name + '.';
+					text: previousName + ' is now known as ' + name + '.'
 				});
 			} else {
 				socket.emit('nameResult', {
