@@ -1,0 +1,8 @@
+{
+	"name": "random-feed-reader",
+	"version": "0.0.1",
+	"description": "Supply some feeds, and you'll get a random story.",
+	"dependencies": {
+		"htmlparser": "*"
+	}
+}

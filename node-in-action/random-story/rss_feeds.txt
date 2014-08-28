@@ -1,0 +1,2 @@
+http://news.google.com/?output=rss
+http://justinrodenbostel.com/feed/
