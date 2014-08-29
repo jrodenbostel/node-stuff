@@ -1,0 +1,8 @@
+{
+	"name": "nimble-flow-control",
+	"version": "0.0.1",
+	"description": "Node downloader example",
+	"dependencies": {
+		"nimble": "*"
+	}
+}
